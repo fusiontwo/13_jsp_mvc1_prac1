@@ -20,15 +20,15 @@
 				<td>작성일</td>
 				<td>조회수</td>
 			</tr>
-<%-- 			<%
+			<%
 				int idx = 1;
 				ArrayList<BoardDTO1> boardList = BoardDAO1.getInstance().getBoardList();
-				for (BoardDTO1 boardDTO : boardList) {			
+				for (BoardDTO1 boardDTO1 : boardList) {			
 			%>
  					<tr>
 						<td><%=idx %></td>
-						<td><a href="bDetail.jsp?boardId=<%=BoardDTO1.getBoardId()%>"><%=boardDTO1.getSubject() %></a></td>
-						<td><%=BoardDTO1.getWriter() %></td>
+						<td><a href="bDetail1.jsp?boardId=<%=boardDTO1.getBoardId()%>"><%=boardDTO1.getSubject() %></a></td>
+						<td><%=boardDTO1.getWriter() %></td>
 						<td><%=boardDTO1.getEnrollDt() %></td>
 						<td><%=boardDTO1.getReadCnt() %></td>
 					</tr>
@@ -36,7 +36,7 @@
 			<%
 					idx++;
 				}
-			%> --%>
+			%>
 			
 			<tr>
 				<td colspan="5">

@@ -84,18 +84,58 @@ public class BoardDAO1 {
 			while (rs.next()) {
 				
 				BoardDTO1 temp = new BoardDTO1();
-				temp.setBoardId(boardId); // 여기 하다가 맘!!!!!!
-			}
+				temp.setBoardId(rs.getLong("BOARD_ID"));
+				temp.setWriter(rs.getString("WRITER"));
+				temp.setSubject(rs.getString("SUBJECT"));
+				temp.setReadCnt(rs.getLong("READ_CNT"));
+				temp.setEnrollDt(rs.getDate("ENROLL_DT"));
+				boardList.add(temp);
+			} 
 			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			getClose();
+		}
+		
+		// 단위 테스트
+//		System.out.println(boardList);
+		
+		return boardList;
+	}
+	
+	// 게시글 상세조회 DAO
+	public BoardDTO1 getBoardDetail(long boardId) {
+		
+		BoardDTO1 boardDTO1 = new BoardDTO1();
+		
+		getConnection();
+		
+		try {
+			pstmt = conn.prepareStatement("UPDATE BOARD SET READ_CNT = READ_CNT + 1 WHERE BOARD_ID = ?");
+			pstmt.setLong(1, boardId);
+			pstmt.executeUpdate();
+			
+			pstmt = conn.prepareStatement("SELECT * FROM BOARD WHERE BOARD_ID = ?");
+			pstmt.setLong(1, boardId);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
+		// 단위 테스트
+		System.out.println(boardId);
 		
-		return boardList;
+		// 단위 테스트
+		System.out.println(boardDTO1);
+		
+		return boardDTO1;
 	}
-	
 	
 	
 	
