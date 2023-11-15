@@ -107,6 +107,9 @@ public class BoardDAO1 {
 	// 게시글 상세조회 DAO
 	public BoardDTO1 getBoardDetail(long boardId) {
 		
+		// 단위 테스트
+		System.out.println(boardId);
+		
 		BoardDTO1 boardDTO1 = new BoardDTO1();
 		
 		getConnection();
@@ -121,15 +124,20 @@ public class BoardDAO1 {
 			rs = pstmt.executeQuery();
 			
 			if (rs.next()) {
-				
+				boardDTO1.setBoardId(rs.getLong("BOARD_ID"));
+				boardDTO1.setWriter(rs.getString("WRITER"));
+				boardDTO1.setEmail(rs.getString("EMAIL"));
+				boardDTO1.setSubject(rs.getString("SUBJECT"));
+				boardDTO1.setContent(rs.getString("CONTENT"));
+				boardDTO1.setReadCnt(rs.getLong("READ_CNT"));
+				boardDTO1.setEnrollDt(rs.getDate("ENROLL_DT"));
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
+		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			getClose();
 		}
-		
-		// 단위 테스트
-		System.out.println(boardId);
 		
 		// 단위 테스트
 		System.out.println(boardDTO1);
@@ -137,7 +145,39 @@ public class BoardDAO1 {
 		return boardDTO1;
 	}
 	
-	
+	// 비밀번호 인증 DAO
+	public boolean checkAuthorizedUser(BoardDTO1 boardDTO1) {
+		
+		// 단위테스트
+		System.out.println(boardDTO1);
+		
+		boolean isAuthorizedUser = false;
+		
+		try {
+			
+			getConnection();
+
+			pstmt = conn.prepareStatement("SELECT * FROM BOARD WHERE BOARD_ID = ? AND PASSWORD = ?");
+			pstmt.setLong(1, boardDTO1.getBoardId());
+			pstmt.setString(2, boardDTO1.getPassword());
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				isAuthorizedUser = true;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			getClose();
+		}
+		
+		// 단위테스트
+		System.out.println(isAuthorizedUser);
+		
+		return isAuthorizedUser;
+		
+	}
 	
 	
 	

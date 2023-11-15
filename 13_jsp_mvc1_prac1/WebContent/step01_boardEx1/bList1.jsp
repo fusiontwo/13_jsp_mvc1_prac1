@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>bList</title>
+<title>bList1</title>
 </head>
 <body>
 	
@@ -40,7 +40,7 @@
 			
 			<tr>
 				<td colspan="5">
-					<input type="button" value="글쓰기" onclick="location.href='bWrite.jsp'">
+					<input type="button" value="글쓰기" onclick="location.href='bWrite1.jsp'">
 				</td>
 			</tr>
 		</table>
