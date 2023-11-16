@@ -1,12 +1,12 @@
 <%@page import="step01_boardEx1.BoardDAO1"%>
 <%@page import="step01_boardEx1.BoardDTO1"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>bWritePro1</title>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 	<%
@@ -26,8 +26,8 @@
 	%>
 	
 	<script>
-		alert("게시글이 등록 되었습니다.");
-		location.href = "bList1.jsp";
+/* 		alert("게시글이 등록 되었습니다.");
+		location.href = "bList1.jsp"; */
 		
 		Swal.fire({
 			title: "게시글이 등록 되었습니다.",

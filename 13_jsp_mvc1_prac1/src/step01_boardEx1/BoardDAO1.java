@@ -24,13 +24,8 @@ public class BoardDAO1 {
 	private void getConnection() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		
-		try {
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MVC1_PRACTICE?serverTimezone=Asia/Seoul", "root", "1234");
-		} catch (SQLException e) {
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MVC1_PRACTICE1?serverTimezone=Asia/Seoul", "root", "1234");
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -53,7 +48,7 @@ public class BoardDAO1 {
 			getConnection();
 			
 			String sql = "INSERT INTO BOARD(WRITER, EMAIL, SUBJECT, PASSWORD, CONTENT, READ_CNT, ENROLL_DT)";
-			sql += "VALUES(?,?,?,?,?,0,NOW())";
+				   sql += "VALUES(?,?,?,?,?,0,NOW())";
 
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, boardDTO.getWriter());
@@ -63,7 +58,7 @@ public class BoardDAO1 {
 			pstmt.setString(5, boardDTO.getContent());
 			pstmt.executeUpdate();
 			
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			getClose();
