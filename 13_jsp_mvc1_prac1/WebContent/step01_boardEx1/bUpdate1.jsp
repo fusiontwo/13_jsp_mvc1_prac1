@@ -45,7 +45,7 @@
 			<p>
 				<input type="hidden" name="boardId" value="<%=boardDTO1.getBoardId()%>">
 				<input type="submit" value="수정하기" />
-				<input type="button" onclick="location.href='bList1.jsp'" value="목록보기" />
+				<input type="button" onclick="location.href='bList.jsp'" value="목록보기" />
 			</p>
 		</form>
 	</div>

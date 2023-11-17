@@ -24,8 +24,13 @@ public class BoardDAO1 {
 	private void getConnection() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MVC1_PRACTICE1?serverTimezone=Asia/Seoul", "root", "1234");
-		} catch (Exception e) {
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MVC1_PRACTICE?serverTimezone=Asia/Seoul", "root", "1234");
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
@@ -47,7 +52,7 @@ public class BoardDAO1 {
 		try {
 			getConnection();
 			
-			String sql = "INSERT INTO BOARD(WRITER, EMAIL, SUBJECT, PASSWORD, CONTENT, READ_CNT, ENROLL_DT)";
+			String sql = "INSERT INTO BOARD1(WRITER, EMAIL, SUBJECT, PASSWORD, CONTENT, READ_CNT, ENROLL_DT)";
 				   sql += "VALUES(?,?,?,?,?,0,NOW())";
 
 			pstmt = conn.prepareStatement(sql);
@@ -58,7 +63,7 @@ public class BoardDAO1 {
 			pstmt.setString(5, boardDTO.getContent());
 			pstmt.executeUpdate();
 			
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			getClose();
@@ -73,7 +78,7 @@ public class BoardDAO1 {
 		getConnection();
 		
 		try {
-			pstmt = conn.prepareStatement("SELECT * FROM BOARD");
+			pstmt = conn.prepareStatement("SELECT * FROM BOARD1");
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -110,11 +115,11 @@ public class BoardDAO1 {
 		getConnection();
 		
 		try {
-			pstmt = conn.prepareStatement("UPDATE BOARD SET READ_CNT = READ_CNT + 1 WHERE BOARD_ID = ?");
+			pstmt = conn.prepareStatement("UPDATE BOARD1 SET READ_CNT = READ_CNT + 1 WHERE BOARD_ID = ?");
 			pstmt.setLong(1, boardId);
 			pstmt.executeUpdate();
 			
-			pstmt = conn.prepareStatement("SELECT * FROM BOARD WHERE BOARD_ID = ?");
+			pstmt = conn.prepareStatement("SELECT * FROM BOARD1 WHERE BOARD_ID = ?");
 			pstmt.setLong(1, boardId);
 			rs = pstmt.executeQuery();
 			
@@ -152,7 +157,7 @@ public class BoardDAO1 {
 			
 			getConnection();
 
-			pstmt = conn.prepareStatement("SELECT * FROM BOARD WHERE BOARD_ID = ? AND PASSWORD = ?");
+			pstmt = conn.prepareStatement("SELECT * FROM BOARD1 WHERE BOARD_ID = ? AND PASSWORD = ?");
 			pstmt.setLong(1, boardDTO1.getBoardId());
 			pstmt.setString(2, boardDTO1.getPassword());
 			rs = pstmt.executeQuery();
@@ -172,6 +177,29 @@ public class BoardDAO1 {
 		
 		return isAuthorizedUser;
 		
+	}
+	
+	// 게시글 수정 DAO
+	public void updateBoard(BoardDTO1 boardDTO1) {
+		
+		// 단위테스트
+		System.out.println(boardDTO1);
+		
+		try {
+
+			getConnection();
+			pstmt = conn.prepareStatement("UPDATE BOARD1 SET SUBJECT = ? , CONTENT = ? WHERE BOARD_ID = ?");
+			pstmt.setString(1, boardDTO1.getSubject());
+			pstmt.setString(2, boardDTO1.getContent());
+			pstmt.setLong(3, boardDTO1.getBoardId());
+			pstmt.executeUpdate();
+		
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			getClose();
+		}
 	}
 	
 	
