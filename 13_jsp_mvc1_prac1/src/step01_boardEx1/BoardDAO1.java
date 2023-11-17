@@ -202,8 +202,22 @@ public class BoardDAO1 {
 		}
 	}
 	
-	
-	
-	
+	// 게시글 삭제 DAO
+	public void deleteBoard(long boardId) {
+		
+		try {
+
+			getConnection();
+			pstmt = conn.prepareStatement("DELETE FROM BOARD1 WHERE BOARD_ID = ?");
+			pstmt.setLong(1, boardId);
+			pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			getClose();
+		}
+		
+	}
 	
 }
